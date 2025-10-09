@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Para ti 💌</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <h1>Para mi "L", con todo mi amor 💖</h1>
+
+        <div class="carousel">
+            <img id="imagen" src="{{ url_for('static', filename='imagenes/' + imagenes[0]) }}" alt="Imagen romántica">
+        </div>
+
+        <div id="frases">
+            <p class="frase">Eres mi pensamiento favorito cada día 💫</p>
+            <p class="frase">Contigo todo es mejor 🌹</p>
+            <p class="frase">Te amo hasta el infinito y más allá ✨</p>
+            <p class="frase">Te amo más de lo que puedo decir 💞</p>
+            <p class="frase">Te amo ahora y te amaré siempre, felices dos meses mi amor 💙</p>
+        </div>
+    </div>
+
+    <script>
+        // Si también tienes imágenes desde Flask, las usamos
+        const imagenes = {{ imagenes | tojson }};
+        // Tus frases personalizadas
+        const frases = [
+            "Eres mi pensamiento favorito cada día 💫",
+            "Contigo todo es mejor 🌹",
+            "Te amo hasta el infinito y más allá ✨",
+            "Te amo más de lo que puedo decir 💞",
+            "Te amo ahora y te amaré siempre, felices dos meses mi amor 💙"
+        ];
+
+        let indice = 0;
+
+        function cambiarImagen() {
+            indice = (indice + 1) % imagenes.length;
+            document.getElementById("imagen").src = "/static/imagenes/" + imagenes[indice];
+
+            // Mostrar la frase correspondiente
+            const frasesDOM = document.querySelectorAll(".frase");
+            frasesDOM.forEach((f, i) => f.style.display = i === indice ? "block" : "none");
+        }
+
+        // Mostrar solo la primera frase al inicio
+        const frasesDOM = document.querySelectorAll(".frase");
+        frasesDOM.forEach((f, i) => f.style.display = i === 0 ? "block" : "none");
+
+        setInterval(cambiarImagen, 3000);
+    </script>
+</body>
+</html>
